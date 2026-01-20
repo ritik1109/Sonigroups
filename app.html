@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soni Electricals & Engineering Works</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: #f0f2f5;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 249, 250, 0.95);
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            height: 60px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .logo-text {
+            color: #3d4852;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-img {
+            height: 40px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .logo-img img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav.scrolled .logo-text {
+            display: none;
+        }
+
+        nav.scrolled .logo-img {
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            transition: all 0.3s;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #3d4852;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-icon {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-icon span {
+            width: 25px;
+            height: 3px;
+            background: #3d4852;
+            transition: all 0.3s;
+        }
+
+        .menu-icon.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-icon.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #e8eaf0 0%, #d4d9e3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 2rem;
+            gap: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(106, 90, 205, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: #3d4852;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #3d4852 0%, #6a5acd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #5a6570;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            min-height: 70vh;
+        }
+
+        section:nth-child(even) {
+            background: linear-gradient(to bottom, #f5f7fa 0%, #e8eaf0 100%);
+            position: relative;
+        }
+
+        section:nth-child(even)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+        }
+
+        section:nth-child(odd) {
+            background: linear-gradient(to bottom, #eef0f4 0%, #dce0e8 100%);
+            position: relative;
+        }
+
+        section:nth-child(odd)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #3d4852;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #6a5acd);
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a6570;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #f8f9fb 0%, #eef0f4 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(212, 175, 55, 0.12);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .card h3 {
+            color: #6a5acd;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding: 0.5rem 0;
+            color: #5a6570;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #3d4852 0%, #495761 100%);
+            color: #f0f2f5;
+            text-align: center;
+            padding: 2rem;
+            border-top: 3px solid #d4af37;
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -260px;
+                width: 250px;
+                height: auto;
+                max-height: 400px;
+                background: rgba(248, 249, 250, 0.98);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+                box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 0 15px;
+                border-left: 2px solid rgba(212, 175, 55, 0.3);
+                border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+                overflow-y: auto;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                gap: 0;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                border: 1px solid rgba(212, 175, 55, 0.2);
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                background: rgba(255, 255, 255, 0.5);
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .nav-links a:hover {
+                background: rgba(212, 175, 55, 0.15);
+                border-color: rgba(212, 175, 55, 0.4);
+            }
+
+            .nav-links li:last-child a {
+                margin-bottom: 0;
+            }
+
+            nav.scrolled .nav-links {
+                display: flex;
+            }
+
+            nav.scrolled .menu-icon {
+                display: flex;
+            }
+
+            .menu-icon {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo-text">Soni Electricals & Engineering Works</div>
+        <div class="logo-img">
+            <img src="/SGs_logo_Image-removebg-preview.png" alt="SG's Logo">
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#infrastructure">Infrastructure</a></li>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#why">Why Choose Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-icon" id="menuIcon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Precision Engineering Solutions</h1>
+            <p>Manufacturing excellence in CNC machining, custom parts, and precision components. From prototype to batch production, we deliver quality that meets your exact specifications.</p>
+        </div>
+        <div class="hero-image">
+            <svg width="500" height="400" viewBox="0 0 500 400">
+                <defs>
+                    <linearGradient id="machineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#6a5acd;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="50" y="100" width="400" height="250" fill="url(#machineGrad)" rx="10"/>
+                <rect x="100" y="150" width="120" height="150" fill="#2c3e50" opacity="0.8"/>
+                <circle cx="160" cy="225" r="40" fill="#fff" opacity="0.4"/>
+                <rect x="280" y="150" width="120" height="150" fill="#2c3e50" opacity="0.8"/>
+                <circle cx="340" cy="225" r="40" fill="#fff" opacity="0.4"/>
+                <rect x="150" y="80" width="200" height="40" fill="#d4af37" rx="5"/>
+                <text x="250" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">CNC MACHINE</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Soni Electricals & Engineering Works is a precision manufacturing company specializing in CNC and conventional machining services. Located in Kharwai, District Raisen on the Main Road Raisen–Bhopal, we serve industries requiring high-quality custom components and engineering solutions.</p>
+            <p>With state-of-the-art infrastructure and a commitment to excellence, we transform raw materials into precision-engineered components that meet the most demanding specifications. Our expertise spans across various materials including Copper, MS, SS, Aluminium, and Plastics.</p>
+        </div>
+    </section>
+
+    <!-- Infrastructure Section -->
+    <section id="infrastructure">
+        <div class="container">
+            <h2>Infrastructure & Machinery</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>CNC Machining Centers</h3>
+                    <p>Advanced CNC machines for high-precision manufacturing with tight tolerances and complex geometries.</p>
+                </div>
+                <div class="card">
+                    <h3>Conventional Machines</h3>
+                    <p>Traditional machining equipment for versatile manufacturing capabilities and cost-effective solutions.</p>
+                </div>
+                <div class="card">
+                    <h3>Quality Control</h3>
+                    <p>Modern inspection equipment ensuring every component meets exact specifications and quality standards.</p>
+                </div>
+                <div class="card">
+                    <h3>Assembly Facility</h3>
+                    <p>Dedicated assembly and fitment area for complete component solutions and sub-assemblies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section id="capabilities">
+        <div class="container">
+            <h2>Manufacturing Capabilities</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>CNC & Conventional Machining</h3>
+                    <p>Precision machining services using both modern CNC and traditional methods for optimal results.</p>
+                </div>
+                <div class="card">
+                    <h3>Custom Part Manufacturing</h3>
+                    <p>Bespoke component production tailored to your exact specifications and requirements.</p>
+                </div>
+                <div class="card">
+                    <h3>Prototype to Batch Production</h3>
+                    <p>Flexible production volumes from single prototypes to medium batch runs.</p>
+                </div>
+                <div class="card">
+                    <h3>Multi-Material Expertise</h3>
+                    <ul>
+                        <li>Copper</li>
+                        <li>MS (Mild Steel)</li>
+                        <li>SS (Stainless Steel)</li>
+                        <li>Aluminium</li>
+                        <li>Plastics</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Assembly & Fitment</h3>
+                    <p>Complete assembly services with precision fitment and quality testing.</p>
+                </div>
+                <div class="card">
+                    <h3>Design Support & Optimization</h3>
+                    <p>Engineering consultation to optimize your designs for manufacturability and cost-effectiveness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why">
+        <div class="container">
+            <h2>Why Choose Us</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Customer-Specific Manufacturing</h3>
+                    <p>Every project is treated uniquely with customized solutions for your specific needs.</p>
+                </div>
+                <div class="card">
+                    <h3>Modern CNC Infrastructure</h3>
+                    <p>State-of-the-art machinery ensuring precision and efficiency in every component.</p>
+                </div>
+                <div class="card">
+                    <h3>Quality-Focused Processes</h3>
+                    <p>Rigorous quality control at every stage from raw material to finished product.</p>
+                </div>
+                <div class="card">
+                    <h3>Competitive Pricing</h3>
+                    <p>Cost-effective solutions without compromising on quality or precision.</p>
+                </div>
+                <div class="card">
+                    <h3>Reliable Delivery</h3>
+                    <p>On-time delivery commitments backed by efficient production planning.</p>
+                </div>
+                <div class="card">
+                    <h3>Engineering-Driven Solutions</h3>
+                    <p>Technical expertise and problem-solving approach to every manufacturing challenge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <h3>Soni Electricals & Engineering Works</h3>
+                <p><strong>Address:</strong><br>
+                Kharwai, District Raisen<br>
+                Main Road Raisen–Bhopal<br>
+                Madhya Pradesh, India</p>
+                <p style="margin-top: 1.5rem;">We welcome drawings, samples, and development inquiries.</p>
+                <p>Get in touch with us to discuss your precision manufacturing requirements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Soni Electricals & Engineering Works | Precision Manufacturing</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const menuIcon = document.getElementById('menuIcon');
+        const navLinks = document.getElementById('navLinks');
+
+        // Scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Menu toggle
+        menuIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuIcon.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuIcon.contains(e.target)) {
+                menuIcon.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Keep menu open when clicking inside it, close when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuIcon.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
