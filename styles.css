@@ -14,45 +14,86 @@ body {
     /* Set the page's light gray base color. */
     background: #f0f2f5;
 }
+
+html {
+    /* Keep page scrolling available while hiding the browser's scrollbar chrome. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    /* Hide the page scrollbar in Chromium and Safari without disabling scrolling. */
+    display: none;
+}
 /* End: Global reset and page defaults. */
 
 /* Start: Navigation bar layout and appearance. */
+:root {
+    --nav-height: 60px;
+}
+
 nav {
     /* Keep navigation visible at the top while the page scrolls. */
     position: fixed;
     top: 0;
     width: 100%;
     /* Use a translucent background with spacing and horizontal flex layout. */
-    background: rgba(248, 249, 250, 0.95);
+    background: rgba(248, 249, 250, 0.2);
     padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     /* Place navigation above page content and keep its height consistent. */
     z-index: 1000;
-    height: 60px;
+    height: var(--nav-height);
     /* Add subtle depth, blur, and a gold-toned divider. */
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.45s ease,
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
+}
+
+nav.scrolled {
+    /* Give the compact header a little more breathing room after scrolling. */
+    --nav-height: 72px;
+    background: rgba(248, 249, 250, 0.2);
+    box-shadow: 0 8px 28px rgba(40, 48, 58, 0.14);
+    border-bottom-color: rgba(212, 175, 55, 0.28);
 }
 
 /* .logo-text: company name shown before the page is scrolled. */
 .logo-text {
-    /* Make the company name prominent and match the page's dark text color. */
+    /* Keep the company name aligned with the logo during the crossfade. */
+    position: absolute;
+    left: 2rem;
+    top: 50%;
     color: #3d4852;
     font-size: 1.2rem;
     font-weight: bold;
-    transition: all 0.3s;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+    transform-origin: left center;
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s;
     letter-spacing: 0.5px;
 }
 
 /* .logo-img: logo image shown in the compact scrolled navigation. */
 .logo-img {
-    /* Keep the logo compact and hidden until the navigation is scrolled. */
+    /* Place the logo over the title position for a smooth fade-and-scale transition. */
+    position: absolute;
+    left: 2rem;
+    top: 50%;
     height: 40px;
-    display: none;
-    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(calc(-50% + 7px)) scale(0.88);
+    transform-origin: left center;
+    transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.4s;
+    pointer-events: none;
 }
 
 /* Fit the image inside the compact logo container. */
@@ -65,21 +106,26 @@ nav {
 
 /* .scrolled: switch the navigation from the company name to its logo. */
 nav.scrolled .logo-text {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(calc(-50% - 7px)) scale(0.96);
 }
 
 /* Show the logo when the navigation enters its scrolled state. */
 nav.scrolled .logo-img {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
 }
 
 /* .nav-links: arrange the section links across the navigation bar. */
 .nav-links {
     /* Lay links in one row with even spacing and no list markers. */
     display: flex;
+    margin-left: auto;
     gap: 2.5rem;
     list-style: none;
-    transition: all 0.3s;
+    transition: gap 0.45s ease;
 }
 
 /* Position each navigation item and style its link and hover state. */
@@ -672,7 +718,7 @@ footer {
     .nav-links {
         /* Position the menu offscreen initially and size it as a side panel. */
         position: fixed;
-        top: 60px;
+        top: var(--nav-height);
         right: -260px;
         width: 250px;
         height: auto;
@@ -741,6 +787,7 @@ footer {
     .menu-icon {
         /* Show the menu toggle on small screens. */
         display: flex;
+        margin-left: auto;
     }
 
     /* .hero and .grid: stack content vertically on narrow screens. */
@@ -776,3 +823,29 @@ footer {
     }
 }
 /* End: Responsive mobile layout. */
+
+@media (max-width: 480px) {
+    .logo-text,
+    .logo-img {
+        left: 1rem;
+    }
+
+    .logo-text {
+        max-width: calc(100vw - 6rem);
+        font-size: 0.95rem;
+    }
+
+    nav {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav,
+    .logo-text,
+    .logo-img,
+    .nav-links {
+        transition-duration: 0.01ms;
+    }
+}

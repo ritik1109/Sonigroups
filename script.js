@@ -5,13 +5,12 @@ const navLinks = document.getElementById('navLinks');
 // End: Navigation element references.
 
 // Start: Show the compact logo after the visitor scrolls down the page.
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+function updateScrolledNavigation() {
+    navbar.classList.toggle('scrolled', window.scrollY > 100);
+}
+
+window.addEventListener('scroll', updateScrolledNavigation, { passive: true });
+updateScrolledNavigation();
 // End: Scroll-based logo behavior.
 
 // Start: Toggle the mobile navigation menu when its menu icon is clicked.
