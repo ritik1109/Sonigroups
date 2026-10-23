@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Start: Page metadata and external assets -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soni Electricals & Engineering Works</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ritik1109/Sonigroups/main/SGs_logo_Image-removebg-preview.png">
     <link rel="stylesheet" href="styles.css">
+    <!-- End: Page metadata and external assets -->
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Start: Navigation bar with links to each page section -->
     <nav id="navbar">
         <div class="logo-text">Soni Electricals & Engineering Works</div>
         <div class="logo-img">
@@ -26,33 +29,23 @@
             <span></span>
         </div>
     </nav>
+    <!-- End: Navigation bar -->
 
-    <!-- Hero Section -->
+    <!-- Start: Hero section introducing the company's engineering services -->
     <section class="hero">
         <div class="hero-text">
             <h1>Precision Engineering Solutions</h1>
             <p>Manufacturing excellence in CNC machining, custom parts, and precision components. From prototype to batch production, we deliver quality that meets your exact specifications.</p>
         </div>
+        <!-- Start: Custom CNC illustration in the hero's existing image area -->
         <div class="hero-image">
-            <svg width="500" height="400" viewBox="0 0 500 400">
-                <defs>
-                    <linearGradient id="machineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#6a5acd" stop-opacity="1" />
-                        <stop offset="100%" stop-color="#d4af37" stop-opacity="1" />
-                    </linearGradient>
-                </defs>
-                <rect x="50" y="100" width="400" height="250" fill="url(#machineGrad)" rx="10"/>
-                <rect x="100" y="150" width="120" height="150" fill="#2c3e50" opacity="0.8"/>
-                <circle cx="160" cy="225" r="40" fill="#fff" opacity="0.4"/>
-                <rect x="280" y="150" width="120" height="150" fill="#2c3e50" opacity="0.8"/>
-                <circle cx="340" cy="225" r="40" fill="#fff" opacity="0.4"/>
-                <rect x="150" y="80" width="200" height="40" fill="#d4af37" rx="5"/>
-                <text x="250" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">CNC MACHINE</text>
-            </svg>
+            <img src="illustrations/cnc-machine.svg" alt="Illustration of a CNC machining center">
         </div>
+        <!-- End: CNC illustration -->
     </section>
+    <!-- End: Hero section -->
 
-    <!-- About Section -->
+    <!-- Start: Company overview and manufacturing materials -->
     <section id="about">
         <div class="container">
             <h2>About Us</h2>
@@ -60,50 +53,60 @@
             <p>With state-of-the-art infrastructure and a commitment to excellence, we transform raw materials into precision-engineered components that meet the most demanding specifications. Our expertise spans across various materials including Copper, MS, SS, Aluminium, and Plastics.</p>
         </div>
     </section>
+    <!-- End: Company overview -->
 
-    <!-- Infrastructure Section -->
+    <!-- Start: Infrastructure and machinery cards -->
     <section id="infrastructure">
         <div class="container">
             <h2>Infrastructure & Machinery</h2>
             <div class="grid">
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/cnc-machine.svg" alt="" aria-hidden="true"></div>
                     <h3>CNC Machining Centers</h3>
                     <p>Advanced CNC machines for high-precision manufacturing with tight tolerances and complex geometries.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/lathe.svg" alt="" aria-hidden="true"></div>
                     <h3>Conventional Machines</h3>
                     <p>Traditional machining equipment for versatile manufacturing capabilities and cost-effective solutions.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/inspection.svg" alt="" aria-hidden="true"></div>
                     <h3>Quality Control</h3>
                     <p>Modern inspection equipment ensuring every component meets exact specifications and quality standards.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/assembly.svg" alt="" aria-hidden="true"></div>
                     <h3>Assembly Facility</h3>
                     <p>Dedicated assembly and fitment area for complete component solutions and sub-assemblies.</p>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End: Infrastructure and machinery -->
 
-    <!-- Capabilities Section -->
+    <!-- Start: Manufacturing capabilities and supported materials -->
     <section id="capabilities">
         <div class="container">
             <h2>Manufacturing Capabilities</h2>
             <div class="grid">
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/lathe.svg" alt="" aria-hidden="true"></div>
                     <h3>CNC & Conventional Machining</h3>
                     <p>Precision machining services using both modern CNC and traditional methods for optimal results.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/precision-parts.svg" alt="" aria-hidden="true"></div>
                     <h3>Custom Part Manufacturing</h3>
                     <p>Bespoke component production tailored to your exact specifications and requirements.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/precision-parts.svg" alt="" aria-hidden="true"></div>
                     <h3>Prototype to Batch Production</h3>
                     <p>Flexible production volumes from single prototypes to medium batch runs.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/materials.svg" alt="" aria-hidden="true"></div>
                     <h3>Multi-Material Expertise</h3>
                     <ul>
                         <li>Copper</li>
@@ -113,73 +116,143 @@
                         <li>Plastics</li>
                     </ul>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
                     <h3>Assembly & Fitment</h3>
                     <p>Complete assembly services with precision fitment and quality testing.</p>
-                </div>
+                </div> -->
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/engineering.svg" alt="" aria-hidden="true"></div>
                     <h3>Design Support & Optimization</h3>
                     <p>Engineering consultation to optimize your designs for manufacturability and cost-effectiveness.</p>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End: Manufacturing capabilities -->
 
-    <!-- Why Choose Us Section -->
+    <!-- Start: Reasons customers choose the company -->
     <section id="why">
         <div class="container">
             <h2>Why Choose Us</h2>
             <div class="grid">
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/engineering.svg" alt="" aria-hidden="true"></div>
                     <h3>Customer-Specific Manufacturing</h3>
                     <p>Every project is treated uniquely with customized solutions for your specific needs.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/facility.svg" alt="" aria-hidden="true"></div>
                     <h3>Modern CNC Infrastructure</h3>
                     <p>State-of-the-art machinery ensuring precision and efficiency in every component.</p>
                 </div>
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/inspection.svg" alt="" aria-hidden="true"></div>
                     <h3>Quality-Focused Processes</h3>
                     <p>Rigorous quality control at every stage from raw material to finished product.</p>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
+                    <div class="card-illustration"><img src="illustrations/precision-parts.svg" alt="" aria-hidden="true"></div>
                     <h3>Competitive Pricing</h3>
                     <p>Cost-effective solutions without compromising on quality or precision.</p>
-                </div>
-                <div class="card">
+                </div> -->
+                <!-- <div class="card">
+                    <div class="card-illustration"><img src="illustrations/delivery.svg" alt="" aria-hidden="true"></div>
                     <h3>Reliable Delivery</h3>
                     <p>On-time delivery commitments backed by efficient production planning.</p>
-                </div>
+                </div> -->
                 <div class="card">
+                    <div class="card-illustration"><img src="illustrations/cnc-machine.svg" alt="" aria-hidden="true"></div>
                     <h3>Engineering-Driven Solutions</h3>
                     <p>Technical expertise and problem-solving approach to every manufacturing challenge.</p>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End: Reasons to choose the company -->
 
-    <!-- Contact Section -->
+    <!-- Start: Company contact details and independent inquiry form -->
     <section id="contact">
         <div class="container">
             <h2>Contact Us</h2>
             <div class="card contact-card">
                 <h3>Soni Electricals & Engineering Works</h3>
-                <p><strong>Address:</strong><br>
-                Kharwai, District Raisen<br>
-                Main Road Raisen–Bhopal<br>
-                Madhya Pradesh, India</p>
-                <p class="contact-intro">We welcome drawings, samples, and development inquiries.</p>
-                <p>Get in touch with us to discuss your precision manufacturing requirements.</p>
+                <p class="contact-address">
+                    <strong>Address:</strong><br>
+                    Kharwai, District Raisen<br>
+                    Main Road Raisen–Bhopal<br>
+                    Madhya Pradesh, India
+                </p>
+                <p class="contact-intro">We welcome drawings, samples, and development inquiries. Get in touch to discuss your precision manufacturing requirements.</p>
             </div>
+
+            <!-- Start: Independent inquiry panel for sending details to the owner -->
+            <div class="inquiry-card">
+                <h3>Send an Inquiry</h3>
+                <form id="inquiryForm" class="inquiry-form" method="post" target="inquiryResponseFrame">
+                    <div class="form-field">
+                        <label for="inquiryName">Name <span aria-hidden="true">*</span></label>
+                        <input id="inquiryName" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryPhone">Phone <span aria-hidden="true">*</span></label>
+                        <input id="inquiryPhone" name="phone" type="tel" autocomplete="tel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryEmail">Email</label>
+                        <input id="inquiryEmail" name="email" type="email" autocomplete="email">
+                    </div>
+                    <!-- <div class="form-field">
+                        <label for="inquiryMaterial">Material</label>
+                        <select id="inquiryMaterial" name="material">
+                            <option value="">Select a material (optional)</option>
+                            <option value="Copper">Copper</option>
+                            <option value="MS (Mild Steel)">MS (Mild Steel)</option>
+                            <option value="SS (Stainless Steel)">SS (Stainless Steel)</option>
+                            <option value="Aluminium">Aluminium</option>
+                            <option value="Plastics">Plastics</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryQuantity">Quantity</label>
+                        <input id="inquiryQuantity" name="quantity" type="text" inputmode="numeric">
+                    </div> -->
+                    <div class="form-field form-field-full">
+                        <label for="inquiryMessage">How can we help? <span aria-hidden="true">*</span></label>
+                        <textarea id="inquiryMessage" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-honeypot" aria-hidden="true">
+                        <label for="companyWebsite">Leave this field empty</label>
+                        <input id="companyWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+                    <input id="inquiryRequestId" name="requestId" type="hidden">
+                    <p class="form-note form-field-full">Please include any drawing or photo details in your message. File attachments are not supported here.</p>
+                    <div class="form-actions form-field-full">
+                        <button class="contact-button" id="sendInquiry" type="submit">Send Inquiry</button>
+                    </div>
+                    <div class="form-loading form-field-full" id="formLoading" aria-hidden="true">
+                        <span class="form-spinner" aria-hidden="true"></span>
+                        <span>Sending your inquiry...</span>
+                    </div>
+                    <p class="form-status form-field-full" id="formStatus" role="status" aria-live="polite"></p>
+                </form>
+                <iframe class="form-response-frame" name="inquiryResponseFrame" title="Inquiry submission response"></iframe>
+                <p class="whatsapp-prompt">Have another question?</p>
+                <a class="whatsapp-link" href="https://wa.me/919301949687" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
+            </div>
+            <!-- End: Independent inquiry panel -->
         </div>
     </section>
+    <!-- End: Company contact details and independent inquiry form -->
 
-    <!-- Footer -->
+    <!-- Start: Page footer -->
     <footer>
         <p>© 2026 Soni Electricals & Engineering Works | Precision Manufacturing</p>
     </footer>
+    <!-- End: Page footer -->
 
+    <!-- Start: Navigation menu and smooth-scroll behavior -->
     <script src="script.js" defer></script>
+    <!-- End: Navigation menu and smooth-scroll behavior -->
 </body>
 </html>
-

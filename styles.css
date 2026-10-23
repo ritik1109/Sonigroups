@@ -1,72 +1,141 @@
+/* Start: Global reset and default page typography/background. */
 * {
+    /* Remove browser defaults so spacing is consistent across elements. */
     margin: 0;
     padding: 0;
+    /* Include padding and borders inside each declared element size. */
     box-sizing: border-box;
 }
 
 body {
+    /* Use a system font and prevent horizontal overflow on narrow screens. */
     font-family: 'Arial', sans-serif;
     overflow-x: hidden;
+    /* Set the page's light gray base color. */
     background: #f0f2f5;
 }
 
-/* Navigation */
+html {
+    /* Keep page scrolling available while hiding the browser's scrollbar chrome. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+    /* Hide the page scrollbar in Chromium and Safari without disabling scrolling. */
+    display: none;
+}
+/* End: Global reset and page defaults. */
+
+/* Start: Navigation bar layout and appearance. */
+:root {
+    --nav-height: 60px;
+}
+
 nav {
+    /* Keep navigation visible at the top while the page scrolls. */
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(248, 249, 250, 0.95);
+    /* Use a translucent background with spacing and horizontal flex layout. */
+    background: rgba(248, 249, 250, 0.2);
     padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* Place navigation above page content and keep its height consistent. */
     z-index: 1000;
-    height: 60px;
+    height: var(--nav-height);
+    /* Add subtle depth, blur, and a gold-toned divider. */
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.45s ease,
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
 }
 
+nav.scrolled {
+    /* Give the compact header a little more breathing room after scrolling. */
+    --nav-height: 72px;
+    background: rgba(248, 249, 250, 0.2);
+    box-shadow: 0 8px 28px rgba(40, 48, 58, 0.14);
+    border-bottom-color: rgba(212, 175, 55, 0.28);
+}
+
+/* .logo-text: company name shown before the page is scrolled. */
 .logo-text {
+    /* Keep the company name aligned with the logo during the crossfade. */
+    position: absolute;
+    left: 2rem;
+    top: 50%;
     color: #3d4852;
     font-size: 1.2rem;
     font-weight: bold;
-    transition: all 0.3s;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+    transform-origin: left center;
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s;
     letter-spacing: 0.5px;
 }
 
+/* .logo-img: logo image shown in the compact scrolled navigation. */
 .logo-img {
+    /* Place the logo over the title position for a smooth fade-and-scale transition. */
+    position: absolute;
+    left: 2rem;
+    top: 50%;
     height: 40px;
-    display: none;
-    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(calc(-50% + 7px)) scale(0.88);
+    transform-origin: left center;
+    transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.4s;
+    pointer-events: none;
 }
 
+/* Fit the image inside the compact logo container. */
 .logo-img img {
+    /* Preserve the logo's proportions while fitting its container. */
     height: 100%;
     width: auto;
     object-fit: contain;
 }
 
+/* .scrolled: switch the navigation from the company name to its logo. */
 nav.scrolled .logo-text {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(calc(-50% - 7px)) scale(0.96);
 }
 
+/* Show the logo when the navigation enters its scrolled state. */
 nav.scrolled .logo-img {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
 }
 
+/* .nav-links: arrange the section links across the navigation bar. */
 .nav-links {
+    /* Lay links in one row with even spacing and no list markers. */
     display: flex;
+    margin-left: auto;
     gap: 2.5rem;
     list-style: none;
-    transition: all 0.3s;
+    transition: gap 0.45s ease;
 }
 
+/* Position each navigation item and style its link and hover state. */
 .nav-links li {
+    /* Establish a positioning context for any future item-level effects. */
     position: relative;
 }
 
 .nav-links a {
+    /* Style links as readable, clickable blocks without underlines. */
     color: #3d4852;
     text-decoration: none;
     font-size: 1rem;
@@ -78,18 +147,23 @@ nav.scrolled .logo-img {
 }
 
 .nav-links a:hover {
+    /* Highlight links with the brand gold color on pointer hover. */
     color: #d4af37;
     background: rgba(212, 175, 55, 0.1);
 }
 
+/* .menu-icon: draw the three-line mobile menu button. */
 .menu-icon {
+    /* Stack the menu lines; hide the icon on wider screens by default. */
     display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
 }
 
+/* Draw the lines and animate them into a close icon when active. */
 .menu-icon span {
+    /* Draw each menu line and animate its change to the close icon. */
     width: 25px;
     height: 3px;
     background: #3d4852;
@@ -97,32 +171,41 @@ nav.scrolled .logo-img {
 }
 
 .menu-icon.active span:nth-child(1) {
+    /* Rotate and shift the first line to form the top half of an X. */
     transform: rotate(45deg) translate(8px, 8px);
 }
 
 .menu-icon.active span:nth-child(2) {
+    /* Hide the center line while the menu is open. */
     opacity: 0;
 }
 
 .menu-icon.active span:nth-child(3) {
+    /* Rotate and shift the last line to form the bottom half of an X. */
     transform: rotate(-45deg) translate(7px, -7px);
 }
+/* End: Navigation bar and menu icon styles. */
 
-/* Hero Section */
+/* Start: Hero layout, text, and decorative background shapes. */
 .hero {
+    /* Offset the fixed navigation and make the hero fill most of the screen. */
     margin-top: 60px;
     min-height: 90vh;
     background: linear-gradient(135deg, #e8eaf0 0%, #d4d9e3 100%);
+    /* Arrange hero text and illustration side by side and center them. */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* Add breathing room and clip decorative shapes at the hero edge. */
     padding: 4rem 2rem;
     gap: 2rem;
     position: relative;
     overflow: hidden;
 }
 
+/* Decorative gold glow behind the hero content. */
 .hero::before {
+    /* Position a large, soft gold glow partly outside the hero. */
     content: '';
     position: absolute;
     top: -50%;
@@ -134,7 +217,9 @@ nav.scrolled .logo-img {
     pointer-events: none;
 }
 
+/* Decorative purple glow behind the hero content. */
 .hero::after {
+    /* Position a soft purple glow opposite the gold decoration. */
     content: '';
     position: absolute;
     bottom: -30%;
@@ -147,13 +232,16 @@ nav.scrolled .logo-img {
 }
 
 .hero-text {
+    /* Let the text share available width and sit above background effects. */
     flex: 1;
     color: #3d4852;
     position: relative;
     z-index: 1;
 }
 
+/* .hero-text: present the main heading and introduction. */
 .hero-text h1 {
+    /* Use a large gradient-filled heading with separation below it. */
     font-size: 3rem;
     margin-bottom: 1rem;
     background: linear-gradient(135deg, #3d4852 0%, #6a5acd 100%);
@@ -163,12 +251,15 @@ nav.scrolled .logo-img {
 }
 
 .hero-text p {
+    /* Make the introduction comfortably readable beneath the heading. */
     font-size: 1.3rem;
     line-height: 1.6;
     color: #5a6570;
 }
 
+/* .hero-image: center and size the CNC illustration. */
 .hero-image {
+    /* Center the illustration in the other half of the hero layout. */
     flex: 1;
     display: flex;
     justify-content: center;
@@ -177,24 +268,33 @@ nav.scrolled .logo-img {
 }
 
 .hero-image img {
+    /* Preserve the vector illustration's proportions and keep it responsive. */
+    display: block;
     width: 100%;
     max-width: 500px;
+    max-height: 360px;
+    height: auto;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
+/* End: Hero section styles. */
 
-/* Sections */
+/* Start: Shared section spacing, alternating backgrounds, and headings. */
 section {
+    /* Give sections consistent interior spacing and minimum vertical room. */
     padding: 4rem 2rem;
     min-height: 70vh;
 }
 
 section:nth-child(even) {
+    /* Alternate section backgrounds for visual separation. */
     background: linear-gradient(to bottom, #f5f7fa 0%, #e8eaf0 100%);
     position: relative;
 }
 
 section:nth-child(even)::after {
+    /* Draw a thin centered gold divider at the top of the section. */
     content: '';
     position: absolute;
     top: 0;
@@ -206,11 +306,13 @@ section:nth-child(even)::after {
 }
 
 section:nth-child(odd) {
+    /* Give the alternate sections a slightly different gray gradient. */
     background: linear-gradient(to bottom, #eef0f4 0%, #dce0e8 100%);
     position: relative;
 }
 
 section:nth-child(odd)::after {
+    /* Reuse the centered divider on the alternating section background. */
     content: '';
     position: absolute;
     top: 0;
@@ -221,12 +323,16 @@ section:nth-child(odd)::after {
     background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
 }
 
+/* .container: keep each section's content centered and readable. */
 .container {
+    /* Limit line length and center the content within the page. */
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Style section headings and add a short gradient underline. */
 h2 {
+    /* Set section title size, spacing, and positioning for its underline. */
     font-size: 2.5rem;
     margin-bottom: 2rem;
     color: #3d4852;
@@ -235,6 +341,7 @@ h2 {
 }
 
 h2::after {
+    /* Place a short gold-to-purple accent line below each section title. */
     content: '';
     position: absolute;
     bottom: -10px;
@@ -245,49 +352,96 @@ h2::after {
     border-radius: 2px;
 }
 
+/* Set the shared typography and spacing for paragraph text. */
 p {
+    /* Keep paragraph text readable with comfortable line and block spacing. */
     font-size: 1.1rem;
     line-height: 1.8;
     color: #5a6570;
     margin-bottom: 1.5rem;
 }
+/* End: Shared section and text styles. */
 
-/* Grid Layout */
+/* Start: .grid arranges content cards; .card defines each reusable information panel. */
 .grid {
+    /* Create responsive columns that wrap cards when space is limited. */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
+/* .card: give each item a raised panel with a subtle gold border. */
 .card {
+    /* Give information cards a soft surface, interior spacing, and rounded corners. */
     background: linear-gradient(145deg, #f8f9fb 0%, #eef0f4 100%);
     padding: 2rem;
     border-radius: 20px;
+    /* Add a subtle shadow, animated hover transitions, and a gold outline. */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 2px solid rgba(212, 175, 55, 0.12);
     position: relative;
 }
 
+/* Start: Vector illustration panels inside manufacturing and service cards. */
+.card-illustration {
+    /* Give each card a consistent full-width illustration panel above its text. */
+    overflow: hidden;
+    height: 160px;
+    margin: -2rem -2rem 1.5rem;
+    border-radius: 18px 18px 0 0;
+    background: linear-gradient(135deg, #f0f2f7 0%, #e5e8f0 100%);
+}
+
+.card-illustration img {
+    /* Scale crisp SVG artwork to the card panel without stretching it. */
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.35s ease, transform 0.35s ease;
+}
+
+.card:hover .card-illustration img {
+    /* Gently dim and enlarge the illustration when its card is hovered. */
+    filter: brightness(0.82);
+    transform: scale(1.04);
+}
+/* End: Card illustration panels. */
+
+/* Lift a card and highlight its border when the pointer hovers over it. */
 .card:hover {
+    /* Raise and slightly enlarge the card, emphasizing its gold border. */
     transform: translateY(-15px) scale(1.02);
     box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
     border-color: rgba(212, 175, 55, 0.4);
 }
 
+/* Keep the contact form panel stationary instead of applying the card hover effect. */
+.contact-card:hover {
+    transform: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    border-color: rgba(212, 175, 55, 0.12);
+}
+
+/* .card h3: emphasize the title at the top of each information panel. */
 .card h3 {
+    /* Distinguish card titles with the accent color and spacing. */
     color: #6a5acd;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
 
+/* .card ul and its list items: display material names with check marks. */
 .card ul {
+    /* Remove default list markers and indentation inside cards. */
     list-style: none;
     padding-left: 0;
 }
 
 .card ul li {
+    /* Space material entries and leave room for the custom check mark. */
     padding: 0.5rem 0;
     color: #5a6570;
     position: relative;
@@ -295,15 +449,18 @@ p {
 }
 
 .card ul li:before {
+    /* Add a gold check mark before each material entry. */
     content: "✓";
     position: absolute;
     left: 0;
     color: #d4af37;
     font-weight: bold;
 }
+/* End: Grid and card styles. */
 
-/* Footer */
+/* Start: Footer appearance and contact card spacing. */
 footer {
+    /* Use a dark centered footer with contrast and a gold top border. */
     background: linear-gradient(135deg, #3d4852 0%, #495761 100%);
     color: #f0f2f5;
     text-align: center;
@@ -311,24 +468,262 @@ footer {
     border-top: 3px solid #d4af37;
 }
 
+/* .contact-card: constrain and center the contact information panel. */
 .contact-card {
-    max-width: 600px;
+    /* Keep the company contact details centered in a compact card. */
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
     margin: 0 auto;
 }
 
-.contact-intro {
-    margin-top: 1.5rem;
+/* .inquiry-card: provide an independent panel for the inquiry form. */
+.inquiry-card {
+    /* Match the other cards while keeping this panel separate and stationary. */
+    width: 100%;
+    max-width: 2000px;
+    margin: 1.5rem auto 0;
+    padding: 1.5rem;
+    border: 2px solid rgba(212, 175, 55, 0.12);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #f8f9fb 0%, #eef0f4 100%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
-/* Mobile Menu */
+.inquiry-card h3 {
+    /* Match the heading style used by the site's information cards. */
+    margin-bottom: 1rem;
+    color: #6a5acd;
+    font-size: 1.5rem;
+}
+
+/* Keep the business address readable and visually separate from the form. */
+.contact-address {
+    margin-bottom: 1rem;
+}
+
+/* .contact-intro: add space above the contact invitation sentence. */
+.contact-intro {
+    /* Separate the inquiry invitation from the address above it. */
+    margin-top: 1rem;
+}
+
+/* Start: Inquiry form field layout, controls, actions, and feedback. */
+.inquiry-form {
+    /* Arrange fields in two columns with consistent gaps. */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1rem;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.form-field {
+    /* Keep each label and its input together in a vertical stack. */
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.form-field-full {
+    /* Let message, notes, buttons, and status use the entire form width. */
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    /* Make field labels easy to distinguish from entered values. */
+    color: #3d4852;
+    font-weight: 600;
+}
+
+.form-field label span {
+    /* Mark required fields using the existing gold accent. */
+    color: #b8860b;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    /* Give all controls a consistent size, border, and readable text. */
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #b9c1cb;
+    border-radius: 7px;
+    background: #f8f9fb;
+    color: #3d4852;
+    font: inherit;
+}
+
+.form-field textarea {
+    /* Allow a longer inquiry and let visitors resize it vertically. */
+    min-height: 90px;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    /* Make the currently selected field visible for keyboard and pointer users. */
+    outline: 2px solid #6a5acd;
+    outline-offset: 2px;
+}
+
+.form-note {
+    /* Explain how to send drawings and photos without a backend upload. */
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.form-honeypot {
+    /* Keep the anti-spam field available to bots but out of the visitor's view. */
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-response-frame {
+    /* Receive the Apps Script response without navigating away from the site. */
+    display: none;
+}
+
+.form-actions {
+    /* Place the two send options side by side and allow wrapping on small screens. */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.form-loading {
+    /* Cover the form content with a soft overlay while a submission is pending. */
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(248, 249, 251, 0.82);
+    border-radius: 8px;
+    color: #3d4852;
+    font-weight: 600;
+}
+
+.inquiry-form.is-submitting .form-loading {
+    /* Show the centered loading indicator only during an active submission. */
+    display: flex;
+}
+
+.form-spinner {
+    /* Draw an animated ring to make the waiting state easy to recognize. */
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(106, 90, 205, 0.2);
+    border-top-color: #6a5acd;
+    border-radius: 50%;
+    animation: form-spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes form-spinner-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.contact-button {
+    /* Style the WhatsApp action as the primary call to action. */
+    border: 0;
+    border-radius: 8px;
+    padding: 0.8rem 1.1rem;
+    background: #6a5acd;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.contact-button:hover {
+    /* Slightly darken the primary action on hover. */
+    background: #5748b8;
+}
+
+.contact-button-secondary {
+    /* Give the email action a distinct but matching secondary appearance. */
+    background: #3d4852;
+}
+
+.contact-button-secondary:hover {
+    /* Darken the secondary action on hover. */
+    background: #2f3942;
+}
+
+.contact-button:focus-visible {
+    /* Show a clear focus indicator when navigating with a keyboard. */
+    outline: 2px solid #d4af37;
+    outline-offset: 3px;
+}
+
+.contact-button:disabled {
+    /* Indicate that the inquiry is being submitted and prevent repeat clicks. */
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.form-status {
+    /* Reserve space for success or setup messages displayed by JavaScript. */
+    min-height: 1.5rem;
+    margin: 0;
+    color: #276749;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-status.error {
+    /* Use a clear warning color when required contact settings are missing. */
+    color: #b42318;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Respect visitors who request reduced animation. */
+    .form-spinner {
+        animation-duration: 1.8s;
+    }
+}
+
+.whatsapp-prompt {
+    /* Separate the direct WhatsApp chat option from form submission. */
+    margin: 1.5rem 0 0.5rem;
+    font-weight: 600;
+}
+
+.whatsapp-link {
+    /* Style the standalone WhatsApp link as an optional, direct contact action. */
+    display: inline-block;
+    color: #187a45;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.whatsapp-link:hover {
+    /* Underline the chat link on hover without affecting the inquiry form. */
+    text-decoration: underline;
+}
+/* End: Inquiry form styles. */
+/* End: Footer and contact card styles. */
+
+/* Start: Responsive navigation and layout adjustments for narrow screens. */
 @media (max-width: 768px) {
+    /* .nav-links and .menu-icon: show the collapsible side menu on phones. */
     .nav-links {
+        /* Position the menu offscreen initially and size it as a side panel. */
         position: fixed;
-        top: 60px;
+        top: var(--nav-height);
         right: -260px;
         width: 250px;
         height: auto;
         max-height: 400px;
+        /* Use a column layout, scroll when needed, and layer above content. */
         background: rgba(248, 249, 250, 0.98);
         flex-direction: column;
         align-items: flex-start;
@@ -343,16 +738,20 @@ footer {
         z-index: 999;
     }
 
+    /* .nav-links.active: slide the mobile menu onscreen when it is open. */
     .nav-links.active {
+        /* Slide the side panel into view when JavaScript adds the active class. */
         right: 0;
     }
 
     .nav-links li {
+        /* Expand each navigation item to the menu width with vertical spacing. */
         width: 100%;
         margin-bottom: 0.5rem;
     }
 
     .nav-links a {
+        /* Make each link an easy-to-tap panel on smaller screens. */
         display: block;
         padding: 0.8rem 1rem;
         border: 1px solid rgba(212, 175, 55, 0.2);
@@ -364,44 +763,89 @@ footer {
     }
 
     .nav-links a:hover {
+        /* Strengthen the gold hover highlight in the mobile menu. */
         background: rgba(212, 175, 55, 0.15);
         border-color: rgba(212, 175, 55, 0.4);
     }
 
     .nav-links li:last-child a {
+        /* Remove extra bottom spacing after the final menu link. */
         margin-bottom: 0;
     }
 
     nav.scrolled .nav-links {
+        /* Keep the mobile menu available when the compact header is active. */
         display: flex;
     }
 
     nav.scrolled .menu-icon {
+        /* Keep the menu toggle visible in the scrolled mobile header. */
         display: flex;
     }
 
+    /* .menu-icon: keep the menu button visible on narrow screens. */
     .menu-icon {
+        /* Show the menu toggle on small screens. */
         display: flex;
+        margin-left: auto;
     }
 
+    /* .hero and .grid: stack content vertically on narrow screens. */
     .hero {
+        /* Stack hero content vertically and center it on narrow screens. */
         flex-direction: column;
         text-align: center;
     }
 
     .hero-text h1 {
+        /* Reduce the heading size to fit narrow viewports. */
         font-size: 2rem;
     }
 
     .hero-text p {
+        /* Reduce introduction text size on narrow viewports. */
         font-size: 1rem;
     }
 
     h2 {
+        /* Reduce section headings on mobile for a better fit. */
         font-size: 2rem;
     }
 
     .grid {
+        /* Put cards in a single column on narrow screens. */
         grid-template-columns: 1fr;
+    }
+
+    .inquiry-form {
+        /* Stack contact fields on mobile for a comfortable form width. */
+        grid-template-columns: 1fr;
+    }
+}
+/* End: Responsive mobile layout. */
+
+@media (max-width: 480px) {
+    .logo-text,
+    .logo-img {
+        left: 1rem;
+    }
+
+    .logo-text {
+        max-width: calc(100vw - 6rem);
+        font-size: 0.95rem;
+    }
+
+    nav {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav,
+    .logo-text,
+    .logo-img,
+    .nav-links {
+        transition-duration: 0.01ms;
     }
 }
