@@ -167,22 +167,76 @@
     </section>
     <!-- End: Reasons to choose the company -->
 
-    <!-- Start: Company address and contact inquiry information -->
+    <!-- Start: Company contact details and independent inquiry form -->
     <section id="contact">
         <div class="container">
             <h2>Contact Us</h2>
             <div class="card contact-card">
                 <h3>Soni Electricals & Engineering Works</h3>
-                <p><strong>Address:</strong><br>
-                Kharwai, District Raisen<br>
-                Main Road Raisen–Bhopal<br>
-                Madhya Pradesh, India</p>
-                <p class="contact-intro">We welcome drawings, samples, and development inquiries.</p>
-                <p>Get in touch with us to discuss your precision manufacturing requirements.</p>
+                <p class="contact-address">
+                    <strong>Address:</strong><br>
+                    Kharwai, District Raisen<br>
+                    Main Road Raisen–Bhopal<br>
+                    Madhya Pradesh, India
+                </p>
+                <p class="contact-intro">We welcome drawings, samples, and development inquiries. Get in touch to discuss your precision manufacturing requirements.</p>
             </div>
+
+            <!-- Start: Independent inquiry panel for sending details to the owner -->
+            <div class="inquiry-card">
+                <h3>Send an Inquiry</h3>
+                <form id="inquiryForm" class="inquiry-form" method="post" target="inquiryResponseFrame">
+                    <div class="form-field">
+                        <label for="inquiryName">Name <span aria-hidden="true">*</span></label>
+                        <input id="inquiryName" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryPhone">Phone <span aria-hidden="true">*</span></label>
+                        <input id="inquiryPhone" name="phone" type="tel" autocomplete="tel" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryEmail">Email</label>
+                        <input id="inquiryEmail" name="email" type="email" autocomplete="email">
+                    </div>
+                    <!-- <div class="form-field">
+                        <label for="inquiryMaterial">Material</label>
+                        <select id="inquiryMaterial" name="material">
+                            <option value="">Select a material (optional)</option>
+                            <option value="Copper">Copper</option>
+                            <option value="MS (Mild Steel)">MS (Mild Steel)</option>
+                            <option value="SS (Stainless Steel)">SS (Stainless Steel)</option>
+                            <option value="Aluminium">Aluminium</option>
+                            <option value="Plastics">Plastics</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="inquiryQuantity">Quantity</label>
+                        <input id="inquiryQuantity" name="quantity" type="text" inputmode="numeric">
+                    </div> -->
+                    <div class="form-field form-field-full">
+                        <label for="inquiryMessage">How can we help? <span aria-hidden="true">*</span></label>
+                        <textarea id="inquiryMessage" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-honeypot" aria-hidden="true">
+                        <label for="companyWebsite">Leave this field empty</label>
+                        <input id="companyWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+                    <input id="inquiryRequestId" name="requestId" type="hidden">
+                    <p class="form-note form-field-full">Please include any drawing or photo details in your message. File attachments are not supported here.</p>
+                    <div class="form-actions form-field-full">
+                        <button class="contact-button" id="sendInquiry" type="submit">Send Inquiry</button>
+                    </div>
+                    <p class="form-status form-field-full" id="formStatus" role="status" aria-live="polite"></p>
+                </form>
+                <iframe class="form-response-frame" name="inquiryResponseFrame" title="Inquiry submission response"></iframe>
+                <p class="whatsapp-prompt">Have another question?</p>
+                <a class="whatsapp-link" href="https://wa.me/919301949687" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
+            </div>
+            <!-- End: Independent inquiry panel -->
         </div>
     </section>
-    <!-- End: Contact information -->
+    <!-- End: Company contact details and independent inquiry form -->
 
     <!-- Start: Page footer -->
     <footer>
