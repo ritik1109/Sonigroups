@@ -58,13 +58,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 /* Start: Submit inquiry details in the background to the Google Apps Script email service. */
 (() => {
     // Replace this with the deployed Google Apps Script web app URL.
-    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyymUB73UtxYQUykRdq1sk88zj0pXswF7jHBBNuJoz3nTXwcHDCEAOxQIUOHBO93tMh8A/exec';
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvBXXSsKNBEus52jGa6NNiBKKp_Qv0mPVNnUsmQJT3fZpxDAipPM5c7SZZTUYwg2v1cQ/exec';
     const form = document.getElementById('inquiryForm');
     const status = document.getElementById('formStatus');
     const submitButton = document.getElementById('sendInquiry');
     const requestIdInput = document.getElementById('inquiryRequestId');
+    const loadingIndicator = document.getElementById('formLoading');
     const responseFrame = document.querySelector('iframe[name="inquiryResponseFrame"]');
-    if (!form || !status || !submitButton || !requestIdInput || !responseFrame) return;
+    if (!form || !status || !submitButton || !requestIdInput || !loadingIndicator || !responseFrame) return;
 
     const serviceIsConfigured = !GOOGLE_APPS_SCRIPT_URL.includes('REPLACE_WITH_DEPLOYMENT_ID');
     if (serviceIsConfigured) {
@@ -89,12 +90,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         requestIdInput.value = requestId;
         form.dataset.pendingRequestId = requestId;
         submitButton.disabled = true;
+        form.classList.add('is-submitting');
+        form.setAttribute('aria-busy', 'true');
+        loadingIndicator.setAttribute('aria-hidden', 'false');
         showStatus('Sending your inquiry...', false);
 
         window.setTimeout(() => {
             if (form.dataset.pendingRequestId === requestId) {
                 delete form.dataset.pendingRequestId;
                 submitButton.disabled = false;
+                form.classList.remove('is-submitting');
+                form.removeAttribute('aria-busy');
+                loadingIndicator.setAttribute('aria-hidden', 'true');
                 showStatus('The inquiry service did not respond. Please try again later.', true);
             }
         }, 30000);
@@ -114,6 +121,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
         delete form.dataset.pendingRequestId;
         submitButton.disabled = false;
+        form.classList.remove('is-submitting');
+        form.removeAttribute('aria-busy');
+        loadingIndicator.setAttribute('aria-hidden', 'true');
         if (result.ok) {
             form.reset();
             showStatus('Thank you. Your inquiry has been sent to our team.', false);

@@ -14,4 +14,6 @@ The inquiry form sends its details from the website to a Google Apps Script web 
 
 The endpoint must be public so the GitHub Pages form can reach it. The script validates fields, has a honeypot for simple bots, and limits successful email attempts to 30 per day. Google's Gmail sending quotas still apply and may change; consumer accounts currently have a 100-recipient-per-day limit. See [Apps Script quotas](https://developers.google.com/apps-script/guides/services/quotas).
 
+Opening the `/exec` URL directly sends a GET request and displays a health-check page. Actual inquiry submissions use POST and are handled by `doPost`.
+
 This implementation sends text only. Visitors cannot upload attachments through the form; they can use the separate WhatsApp chat link for other questions.

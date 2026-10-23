@@ -2,6 +2,16 @@ const OWNER_EMAIL = 'Mail@sonigroups.com';
 const DAILY_INQUIRY_LIMIT = 30;
 
 /**
+ * Shows a health-check page when the web app URL is opened directly.
+ * Inquiry submissions are handled separately by doPost.
+ */
+function doGet() {
+    return HtmlService.createHtmlOutput(
+        '<!doctype html><html><body><p>Contact service is active. Submit inquiries using the website form.</p></body></html>'
+    );
+}
+
+/**
  * Receives the contact form, validates it, and emails the business owner.
  * The result is sent back to the website through the hidden response frame.
  */

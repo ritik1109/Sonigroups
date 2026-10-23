@@ -439,6 +439,7 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem 1rem;
     margin-top: 1rem;
+    position: relative;
 }
 
 .form-field {
@@ -518,6 +519,42 @@ footer {
     gap: 0.75rem;
 }
 
+.form-loading {
+    /* Cover the form content with a soft overlay while a submission is pending. */
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(248, 249, 251, 0.82);
+    border-radius: 8px;
+    color: #3d4852;
+    font-weight: 600;
+}
+
+.inquiry-form.is-submitting .form-loading {
+    /* Show the centered loading indicator only during an active submission. */
+    display: flex;
+}
+
+.form-spinner {
+    /* Draw an animated ring to make the waiting state easy to recognize. */
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(106, 90, 205, 0.2);
+    border-top-color: #6a5acd;
+    border-radius: 50%;
+    animation: form-spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes form-spinner-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .contact-button {
     /* Style the WhatsApp action as the primary call to action. */
     border: 0;
@@ -562,11 +599,20 @@ footer {
     min-height: 1.5rem;
     margin: 0;
     color: #276749;
+    text-align: center;
+    font-weight: 600;
 }
 
 .form-status.error {
     /* Use a clear warning color when required contact settings are missing. */
     color: #b42318;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Respect visitors who request reduced animation. */
+    .form-spinner {
+        animation-duration: 1.8s;
+    }
 }
 
 .whatsapp-prompt {
