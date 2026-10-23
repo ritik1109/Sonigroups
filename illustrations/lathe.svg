@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" role="img">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8f5eb"/><stop offset="1" stop-color="#e8eaf2"/></linearGradient>
+    <linearGradient id="metal" x2="0" y2="1"><stop stop-color="#e0e5eb"/><stop offset=".48" stop-color="#8493a2"/><stop offset="1" stop-color="#d2d9e0"/></linearGradient>
+  </defs>
+  <rect width="480" height="280" rx="24" fill="url(#bg)"/>
+  <circle cx="75" cy="65" r="27" fill="#d4af37" opacity=".16"/><circle cx="405" cy="201" r="43" fill="#6a5acd" opacity=".08"/>
+  <ellipse cx="241" cy="226" rx="156" ry="13" fill="#c7cbd3" opacity=".55"/>
+  <path d="M76 205h328v18H76z" rx="5" fill="#3d4852"/>
+  <path d="M102 223v12m276-12v12" stroke="#3d4852" stroke-width="11" stroke-linecap="round"/>
+  <rect x="93" y="87" width="91" height="112" rx="12" fill="#536574"/>
+  <rect x="106" y="99" width="65" height="85" rx="7" fill="url(#metal)"/>
+  <circle cx="138" cy="141" r="28" fill="#3d4852"/><circle cx="138" cy="141" r="20" fill="url(#metal)"/><circle cx="138" cy="141" r="7" fill="#d4af37"/>
+  <path d="M167 131h152v20H167z" fill="url(#metal)"/>
+  <path d="M180 128v26m112-26v26" stroke="#748392" stroke-width="3"/>
+  <rect x="310" y="87" width="72" height="112" rx="10" fill="#6a5acd"/>
+  <rect x="322" y="102" width="49" height="33" rx="5" fill="#d9e0e8"/>
+  <circle cx="346" cy="162" r="13" fill="#d4af37"/><circle cx="346" cy="162" r="5" fill="#fff"/>
+  <path d="M196 153l-8 25h33l-8-25" fill="#d4af37"/><path d="M201 178v25" stroke="#3d4852" stroke-width="7"/>
+  <path d="M112 75h249" stroke="#fff" stroke-width="3" opacity=".5"/>
+</svg>

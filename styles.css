@@ -222,9 +222,13 @@ nav.scrolled .logo-img {
 }
 
 .hero-image img {
-    /* Keep the image responsive, rounded, and visually elevated. */
+    /* Preserve the vector illustration's proportions and keep it responsive. */
+    display: block;
     width: 100%;
     max-width: 500px;
+    max-height: 360px;
+    height: auto;
+    object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
@@ -333,6 +337,32 @@ p {
     border: 2px solid rgba(212, 175, 55, 0.12);
     position: relative;
 }
+
+/* Start: Vector illustration panels inside manufacturing and service cards. */
+.card-illustration {
+    /* Give each card a consistent full-width illustration panel above its text. */
+    overflow: hidden;
+    height: 160px;
+    margin: -2rem -2rem 1.5rem;
+    border-radius: 18px 18px 0 0;
+    background: linear-gradient(135deg, #f0f2f7 0%, #e5e8f0 100%);
+}
+
+.card-illustration img {
+    /* Scale crisp SVG artwork to the card panel without stretching it. */
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.35s ease, transform 0.35s ease;
+}
+
+.card:hover .card-illustration img {
+    /* Gently dim and enlarge the illustration when its card is hovered. */
+    filter: brightness(0.82);
+    transform: scale(1.04);
+}
+/* End: Card illustration panels. */
 
 /* Lift a card and highlight its border when the pointer hovers over it. */
 .card:hover {
